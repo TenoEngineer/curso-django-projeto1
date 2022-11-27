@@ -5,11 +5,9 @@ from ultis.recipes.factory import make_recipe
 
 
 def home(request):
-    recipes = get_list_or_404(
-        Recipe.objects.filter(
-            is_published=True
-        ).order_by('-id')
-    )
+    recipes = Recipe.objects.filter(
+        is_published=True
+    ).order_by('-id')
     return render(request, 'recipes/pages/home.html', context={
         'recipes': recipes,
     })
@@ -24,7 +22,7 @@ def category(request, category_id):
     )
     return render(request, 'recipes/pages/category.html', context={
         'recipes': recipes,
-        'title': f'{recipes.first().category.name} - Category | '
+        'title': f'{recipes[0].category.name} - Category | '
     })
 
 
