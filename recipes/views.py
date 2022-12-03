@@ -1,5 +1,5 @@
 from django.shortcuts import get_list_or_404, get_object_or_404, render
-
+from django.http.response import Http404
 from recipes.models import Recipe
 from ultis.recipes.factory import make_recipe
 
@@ -32,3 +32,10 @@ def recipe(request, id):
         'recipe': recipe,
         'is_detail_page': True
     })
+
+def search(request):
+    search_term = request.GET.get('q')
+
+    if not search_term:
+        raise Http404()
+    return render(request, 'recipes/pages/search.html')
